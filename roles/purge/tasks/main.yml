@@ -1,0 +1,31 @@
+---
+
+- name: Purge all packages
+  apt: name={{ item }} state=absent
+  with_items:
+     - git
+     - ntp
+     - ttf-dejavu-core
+     - rsyslog
+     - monit
+     - zabbix-release
+     - zabbix-frontend-php
+     - zabbix-agent
+     - rsync
+
+- name: Purge all previously installed data
+  file: path={{ item }} state=absent
+  with_items:
+     - /etc/ntp.conf
+     - /etc/rsyslog.d
+     - /etc/php5
+     - /etc/zabbix
+
+- name: Check if packages need to be autoremoved
+  command: apt-get --dry-run autoremove
+  register: check_autoremove
+  changed_when: False
+- name: Autoremove unused packages
+  command: apt-get -y autoremove
+  when: "'packages will be REMOVED' in check_autoremove.stdout"
+

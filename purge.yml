@@ -5,8 +5,4 @@
   remote_user: vagrant
   user: root
   roles:
-  - common 
-  - monit
-  - rsyslog
-  - zabbix-agent
-  - ntp
+  - purge
