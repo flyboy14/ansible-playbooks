@@ -8,8 +8,8 @@
      - ttf-dejavu-core
      - rsyslog
      - monit
-#     - apache2
-#     - zabbix-frontend-php
+     - zabbix-release
+     - zabbix-frontend-php
      - zabbix-agent
      - rsync
 
@@ -20,7 +20,6 @@
      - /etc/rsyslog.d
      - /etc/php5
      - /etc/zabbix
-     - /var/lib/dpkg/info/zabbix-*
 
 - name: Check if packages need to be autoremoved
   command: apt-get --dry-run autoremove

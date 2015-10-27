@@ -1,0 +1,8 @@
+---
+
+- name: install rsyslog
+  apt: name=rsyslog state=present
+
+- name: Add rsyslog config
+  synchronize: src=log-ls.conf dest=/etc/rsyslog.d/log-ls.conf
+  notify: activate rsyslog

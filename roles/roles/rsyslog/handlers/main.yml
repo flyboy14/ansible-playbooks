@@ -1,0 +1,4 @@
+---
+
+- name: activate rsyslog
+  service: name=rsyslog state=started enabled=yes

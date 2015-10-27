@@ -1,0 +1,47 @@
+---
+
+#- name: Download Zabbix sources
+#  command: wget repo.zabbix.com/zabbix/2.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_2.2-1+precise_all.deb
+
+#- name: Install Zabbix package v2.2
+#  command: dpkg -i zabbix-release_2.2-1+precise_all.deb
+
+#- name: Remove downloaded Zabbix package
+#  file: name=zabbix-release_2.2-1+precise_all.deb state=absent
+
+- name: Install Zabbix MySQL server
+  apt: name={{ item }} state=present
+  with_items:
+     - zabbix-server-mysql
+     - php5-mysql
+
+- name: Set custom hostname
+  hostname: name=zabbix_server
+
+- name: Rsync zabbix_server.conf
+  synchronize: src=zabbix_server.conf dest=/etc/zabbix/zabbix_server.conf
+
+- name: Unpack mysql data for further importing
+  command: /bin/gunzip *.gz chdir=/usr/share/zabbix-server-mysql/ 
+
+- name: Add user zabbix to MySQL
+  mysql_user: password=zabbix name=zabbix priv=*.*:ALL,GRANT state=present
+
+- name: Create MySQL database for zabbix
+  mysql_db: name=zabbix state=present
+
+- name: Import schemas into database
+  command: /usr/bin/mysql -u zabbix -p zabbix < schema.sql
+- name: Import schemas into database
+  command: mysql -u zabbix -p zabbix < images.sql
+- name: Import schemas into database
+  command: mysql -u zabbix -p zabbix < data.sql
+
+- name: rsync zabbix php config
+  synchronize: src=zabbix.conf.php dest=/etc/zabbix/zabbix/conf.php
+
+- name: copy the example apache config to conf-available/
+  command: cp /usr/share/doc/zabbix-frontend-php/examples/apache.conf /etc/apache2/conf-available/zabbix.conf 
+
+- name: Make Zabbix and Apache work together
+  apache2_module: name=alias state=present

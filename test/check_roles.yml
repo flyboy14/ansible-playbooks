@@ -5,8 +5,8 @@
   remote_user: vagrant
   user: root
   roles:
-  - common
-  - adham.helal.zabbix_server
-  - ANXS.monit
-  - ntp
+  - common 
+  - monit
   - rsyslog
+  - zabbix-agent
+  - ntp
