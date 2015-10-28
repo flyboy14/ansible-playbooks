@@ -1,16 +1,16 @@
 ---
 
-#- name: Check if packages need to be autoremoved
-#  command: apt-get --dry-run autoremove
-#  register: check_autoremove
-#  changed_when: False
+- name: Check if packages need to be autoremoved
+  command: apt-get --dry-run autoremove
+  register: check_autoremove
+  changed_when: False
 
-#- name: Autoremove unused packages
-#  command: apt-get -y autoremove
-#  when: "'packages will be REMOVED' in check_autoremove.stdout"
+- name: Autoremove unused packages
+  command: apt-get -y autoremove
+  when: "'packages will be REMOVED' in check_autoremove.stdout"
 
-- name: Apt update followed by apt upgrade
-  apt: upgrade=yes update_cache=yes
+#- name: Apt update followed by apt upgrade
+#  apt: upgrade=yes update_cache=yes
 
 - name: Apt-key update
   command: apt-key update -y
@@ -27,8 +27,8 @@
 
 - name: Install mysqldb
   pip: name=MySQL-python state=present
-#- name: Install apache2 for monit
-#  apt: name=apache2 state=present
+- name: Install apache2 for monit
+  apt: name=apache2 state=present
 
 
 - name: Install git for Zabbix agent
@@ -37,5 +37,8 @@
 - name: Install ttf-dejavu-core for Zabbix frontend
   apt: name=ttf-dejavu-core state=present
 
-- name: Install mysql
-  apt: name=mysql-server state=present
+- name: Install tar/unzip
+  apt: name={{ item }} state=present
+  with_items:
+     - unzip
+     - tar

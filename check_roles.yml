@@ -6,7 +6,8 @@
   user: root
   roles:
   - common
-  - adham.helal.zabbix_server
-  - ANXS.monit
-  - ntp
-  - rsyslog
+  - zabbix-agent
+  - zabbix-server
+#  - ANXS.monit
+#  - ntp
+#  - rsyslog

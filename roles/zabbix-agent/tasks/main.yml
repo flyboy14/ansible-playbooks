@@ -16,4 +16,4 @@
      - zabbix-frontend-php
 
 - name: Rsync zabbix_agentd.conf to /etc/zabbix
-  synchronize: src=agentd.conf dest=/etc/zabbix/zabbix_agentd.conf
+  synchronize: src=zabbix_agentd.conf dest=/etc/zabbix/zabbix_agentd.conf
