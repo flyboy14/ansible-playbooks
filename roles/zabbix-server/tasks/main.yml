@@ -55,7 +55,7 @@
   command: cp /usr/share/doc/zabbix-frontend-php/examples/apache.conf /etc/apache2/conf-available/zabbix.conf 
 
 - name: Fix apache not determening server
-  lineinfile: dest=/etc/apache2/apache2.conf line="ServerName = 127.0.0.1"
+  lineinfile: dest=/etc/apache2/apache2.conf line="ServerName 127.0.0.1"
 
 - name: Make Zabbix and Apache work together
   apache2_module: name=alias state=present
