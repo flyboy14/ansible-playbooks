@@ -1,0 +1,35 @@
+---
+
+- name: zabbix_server | Install Zabbix Server
+  apt: name=zabbix-server-mysql state=present
+
+- name: Unpack mysql data for further importing
+  command: chdir=/usr/share/zabbix-server-mysql/ {{ item }}
+  with_items:
+     - gunzip -kf /usr/share/zabbix-server-mysql/data.sql.gz
+     - gunzip -kf /usr/share/zabbix-server-mysql/schema.sql.gz 
+     - gunzip -kf /usr/share/zabbix-server-mysql/images.sql.gz 
+
+- name: zabbix_server | Zabbix server conf file
+  template: 
+     src=server/zabbix_server.conf.j2
+     dest=/etc/zabbix/zabbix_server.conf
+     owner=zabbix
+     group=zabbix
+     mode=600
+  notify: restart zabbix_server
+
+- name: zabbix_server | Copy zabbix apache config to sites-enabled
+  command: cp /etc/zabbix/apache.conf /etc/apache2/sites-enabled/zabbix.conf
+
+- name: zabbix_server | Add ServerName to apache config to avoid determination error
+  lineinfile: dest=/etc/apache2/apache2.conf line="ServerName 127.0.0.1"
+#- name: zabbix_server | populate postgres database is populated
+#  shell:
+#      psql {{ zabbix_server_db_name }} -h localhost  < {{item}} && sleep 3
+#  with_items: zabbix_server_sql_files
+#  when: postgres_db.changed and zabbix_server_db_type == 'pgsql'
+#  sudo_user: postgres
+  
+
+
