@@ -7,7 +7,7 @@
   roles:
   - common
   - zabbix-agent
-  - zabbix-server-ahelal
+  - zabbix-server
   - ANXS.monit
   - ntp
   - rsyslog
