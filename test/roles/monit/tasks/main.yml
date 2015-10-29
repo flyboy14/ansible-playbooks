@@ -1,4 +1,0 @@
----
-
-- name: install monit
-  apt: name=monit state=present

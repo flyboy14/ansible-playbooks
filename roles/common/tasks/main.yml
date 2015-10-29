@@ -9,8 +9,8 @@
   command: apt-get -y autoremove
   when: "'packages will be REMOVED' in check_autoremove.stdout"
 
-#- name: Apt update followed by apt upgrade
-#  apt: upgrade=yes update_cache=yes
+- name: Apt update followed by apt upgrade
+  apt: upgrade=yes update_cache=yes
 
 - name: Apt-key update
   command: apt-key update -y
@@ -18,27 +18,9 @@
 - name: Install rsync for ntp
   apt: name=rsync state=present
 
-- name: Install python
-  apt: name={{ item }} state=present
-  with_items:
-     - python-dev
-     - python-pip
-     - libmysqlclient-dev
-
-- name: Install mysqldb
-  pip: name=MySQL-python state=present
-- name: Install apache2 for monit
-  apt: name=apache2 state=present
-
-
 - name: Install git for Zabbix agent
   apt: name=git state=present
 
 - name: Install ttf-dejavu-core for Zabbix frontend
   apt: name=ttf-dejavu-core state=present
 
-- name: Install tar/unzip
-  apt: name={{ item }} state=present
-  with_items:
-     - unzip
-     - tar

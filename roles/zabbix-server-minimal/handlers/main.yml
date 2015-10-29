@@ -1,4 +1,0 @@
----
-
-- name: Restart the apache service
-  service: name=apache2 state=restarted

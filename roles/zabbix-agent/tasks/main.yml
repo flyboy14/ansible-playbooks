@@ -1,13 +1,13 @@
 ---
 
 - name: Download Zabbix sources
-  command: wget repo.zabbix.com/zabbix/2.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_2.2-1+precise_all.deb
+  command: wget -q repo.zabbix.com/zabbix/2.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_2.2-1+trusty_all.deb
 
 - name: Install Zabbix package v2.2
-  command: dpkg -i zabbix-release_2.2-1+precise_all.deb
+  command: dpkg -i zabbix-release_2.2-1+trusty_all.deb
 
 - name: Remove downloaded Zabbix package
-  file: name=zabbix-release_2.2-1+precise_all.deb state=absent
+  file: name=zabbix-release_2.2-1+trusty_all.deb state=absent
 
 - name: Install Zabbix agent and Zabbix frontend-php
   apt: name={{ item }} state=present

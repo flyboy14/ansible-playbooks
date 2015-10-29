@@ -1,7 +1,0 @@
----
-
-- name: Install ntp
-  apt: name=ntp state=present
-
-- name: Rsync ntp.conf to /etc/
-  synchronize: src=ntp.conf dest=/etc/ntp.conf

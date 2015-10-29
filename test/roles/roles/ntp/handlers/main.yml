@@ -1,4 +1,0 @@
----
-
-- name: Activate ntp service
-  service: name=ntp state=started enabled=yes

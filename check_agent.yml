@@ -1,0 +1,13 @@
+---
+
+
+- hosts: zabbix-agent
+  remote_user: vagrant
+  user: root
+  roles:
+  - common
+  - zabbix-agent
+  #- zabbix-server-ahelal
+  - ANXS.monit
+  - ntp
+  - rsyslog
