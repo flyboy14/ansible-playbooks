@@ -7,6 +7,6 @@
   roles:
   - common
   - zabbix-agent
-  - ANXS.monit
+  - ANXS.monit.agent
   - ntp
   - rsyslog

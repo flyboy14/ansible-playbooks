@@ -1,4 +1,3 @@
-
 ## zabbix Server version
 #zabbix_server_major                   : '2'
 #zabbix_server_minor                   : '4'
@@ -7,15 +6,15 @@
 ## What compmentes to install
 zabbix_server_front_install           : True  ## Install frontend and dependency
 zabbix_server_install                 : True  ## Install server
-zabbix_server_proxy_install           : False  ## Install proxy server
-zabbix_agent_install                  : False  ## Install agent server
+zabbix_server_proxy_install           : False ## Install proxy server
+zabbix_agent_install                  : False ## Install agent server
 
 ## Zabbix Server  Configuration
 zabbix_server_host                    : "{{ ansible_ssh_host | default(inventory_hostname) }}"
 zabbix_server_name                    : "{{ inventory_hostname }}"
 zabbix_server_port                    : 10051
 zabbix_server_conf                    :
-    ListenIP                          : 0.0.0.0
+    ListenIP                          : "127.0.0.1"
     ListenPort                        : "{{ zabbix_server_port }}"
     LogFile                           : /var/log/zabbix/zabbix_server.log
     LogFileSize                       : 0
@@ -50,7 +49,7 @@ zabbix_server_db_type                 : 'mysql' ## pgsql or mysql
 zabbix_server_db_name                 : "zabbix"
 zabbix_server_db_user                 : "zabbix"
 zabbix_server_db_pass                 : "READRdXxc&2zgvgzs_blaaaaaa"
-zabbix_server_db_host                 : "localhost"
+zabbix_server_db_host                 : "127.0.0.1"
 zabbix_server_db_port                 : 5432
 zabbix_server_db_intial_dir           : "/usr/share/zabbix-server-{{zabbix_server_db_type}}"
 
@@ -64,7 +63,7 @@ zabbix_agent_conf                     :
     LogRemoteCommands                 : 0 ## 0 or 1
     Server                            : "{{ zabbix_agent_Server }}"
     ListenPort                        : 10050
-    ListenIP                          : "0.0.0.0"
+    ListenIP                          : "127.0.0.1"
     StartAgents                       : 3
     Hostname                          : "{{ inventory_hostname }}"
     #ServerActive

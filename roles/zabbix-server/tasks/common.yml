@@ -9,7 +9,7 @@
 #- name: Remove downloaded Zabbix package
 
 #  file: name=zabbix-release_2.2-1+trusty_all.deb state=absent
-- name: Install python 
+- name: Install python
   apt: name={{ item }} state=present
   with_items:
      - python-dev
@@ -44,3 +44,5 @@
 #  apt :
 #     update_cache="yes"
 #  when: zabbix_server_apt_key | changed or zabbix_server_apt_repo | changed
+- name: Common | Install zabbix-server-mysql
+  apt: name=zabbix-server-mysql state=present

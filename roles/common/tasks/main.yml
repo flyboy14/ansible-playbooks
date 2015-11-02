@@ -9,8 +9,8 @@
   command: apt-get -y autoremove
   when: "'packages will be REMOVED' in check_autoremove.stdout"
 
-- name: Apt update followed by apt upgrade
-  apt: upgrade=yes update_cache=yes
+#- name: Apt update followed by apt upgrade
+#  apt: upgrade=yes update_cache=yes
 
 - name: Apt-key update
   command: apt-key update -y

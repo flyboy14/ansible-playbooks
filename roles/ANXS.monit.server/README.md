@@ -1,5 +1,15 @@
-# file: monit/defaults/main.yml
+## ANXS - monit [![Build Status](https://travis-ci.org/ANXS/monit.png)](https://travis-ci.org/ANXS/monit)
 
+Ansible role which installs monit monitoring and management tool (and attaches it to ssh, cron, ntpd).
+
+
+#### Requirements & Dependencies
+- Tested on Ansible 1.4 or higher.
+
+
+#### Variables
+
+```yaml
 monit_email_enable: yes
 monit_notify_email: "me@localhost"
 
@@ -32,3 +42,20 @@ monit_ssl: no
 monit_cert: "/etc/monit/monit.pem"
 
 monit_monitors_sshd_port: 22
+```
+
+
+#### Testing
+This project comes with a VagrantFile, this is a fast and easy way to test changes to the role, fire it up with `vagrant up`
+
+See [vagrant docs](https://docs.vagrantup.com/v2/) for getting setup with vagrant
+
+
+#### License
+
+Licensed under the MIT License. See the LICENSE file for details.
+
+
+#### Feedback, bug-reports, requests, ...
+
+Are [welcome](https://github.com/ANXS/monit/issues)!
