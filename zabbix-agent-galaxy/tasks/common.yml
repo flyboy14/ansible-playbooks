@@ -19,18 +19,16 @@
      - libcurl3-gnutls
      - update-notifier-common
 
-- name: common | Install python
+- name: Install python
   apt: name={{ item }} state=present
   with_items:
      - python-dev
      - python-pip
      - libmysqlclient-dev
 
-- name: common | Install mysqldb module
+- name: Install mysqldb module
   pip: name=MySQL-python state=present
 
-- name: common | Install zabbix-api module
-  pip: name=zabbix-api state=present
 #- name: common | Add zabbix.com repository key
 #  apt_key:
 #     url=http://repo.zabbix.com/zabbix-official-repo.key

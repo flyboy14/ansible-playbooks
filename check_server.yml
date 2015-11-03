@@ -8,6 +8,7 @@
   - common
   - zabbix-agent
   - zabbix-server
-  - ANXS.monit.server
-  - ntp
-  - rsyslog
+  - zabbix-api
+    # - ANXS.monit.server
+    # - ntp
+    # - rsyslog

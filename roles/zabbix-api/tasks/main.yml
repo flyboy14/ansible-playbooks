@@ -1,0 +1,23 @@
+---
+
+- name: Create hosts or update existing hosts info
+  local_action:
+    module: zabbix_host
+    server_url: http://192.168.33.12
+    login_user: Admin
+    login_password: zabbix
+    host_name: "Zabbix Server"
+    status: enabled
+    state: present
+    interfaces:
+      - type: 1
+        main: 1
+        useip: 1
+        ip: 127.0.0.1
+        dns: ""
+        port: 10050
+      - type: 4
+        main: 1
+        useip: 1
+        ip: 192.168.33.11
+        port: 10050

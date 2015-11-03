@@ -15,5 +15,15 @@
      - zabbix-agent
      - zabbix-frontend-php
 
-- name: Rsync zabbix_agentd.conf to /etc/zabbix
-  synchronize: src=zabbix_agentd.conf dest=/etc/zabbix/zabbix_agentd.conf
+#- name: Rsync zabbix_agentd.conf to /etc/zabbix
+#  synchronize: src=zabbix_agentd.conf dest=/etc/zabbix/zabbix_agentd.conf
+
+
+- name: zabbix_agent | Deploy zabbix_agentd.conf file
+  template:
+     src="zabbix_agentd.conf.j2"
+     dest="/etc/zabbix/zabbix_agentd.conf"
+     owner=root
+     group=root
+     mode=0644
+  notify: restart zabbix_agent
