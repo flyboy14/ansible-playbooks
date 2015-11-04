@@ -1,13 +1,5 @@
 #!/usr/bin/perl
 
-use 5.010;
-use strict;
-use warnings;
-use JSON::RPC::Client;
-use Data::Dumper;
-#!/usr/bin/perl
-#!/usr/bin/perl
-
 $num_args = $#ARGV + 1;
 if ($num_args != 2) {
     print "Usage: host_add.pl Name IP-address\n";

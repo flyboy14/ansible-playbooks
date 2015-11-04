@@ -26,6 +26,12 @@
     - JSON-RPC-0.96.tar.gz
     - JSON-RPC-0.96
 
+- name: zabbix-api | restart mysql service
+  service: name=mysql state=restarted
+
+- name: zabbix-api | start zabbix-server service
+  service: name=zabbix-server state=started
+
 - name: zabbix-api | Execute scripts monitoring zabbix server and agent
   command: "perl host_status.pl 10084 0"
 - command: "perl host_add.pl 'Zabbix Agent' 192.168.33.11"
