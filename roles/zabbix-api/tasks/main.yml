@@ -18,12 +18,18 @@
   synchronize: src=host_add.pl dest=host_add.pl
 - synchronize: src=hosts.pl dest=hosts.pl
 - synchronize: src=host_delete.pl dest=host_delete.pl
+- synchronize: src=host_status.pl dest=host_status.pl
 
 - name: zabbix-api | clean files
   file: name={{ item }} state=absent
   with_items:
     - JSON-RPC-0.96.tar.gz
     - JSON-RPC-0.96
+
+- name: zabbix-api | Execute scripts monitoring zabbix server and agent
+  command: "perl host_status.pl 10084 0"
+- command: "perl host_add.pl 'Zabbix Agent' 192.168.33.11"
+
 #- name: Create hosts or update existing hosts info
 #  local_action:
 #    module: zabbix_host
