@@ -3,10 +3,10 @@
 
 - hosts: zabbix-agent
   remote_user: vagrant
-  user: root
+  become: yes
   roles:
   - common
   - zabbix-agent
-  - ANXS.monit.agent
-  - ntp
-  - rsyslog
+    #  - ANXS.monit.agent
+    #  - ntp
+    #  - rsyslog

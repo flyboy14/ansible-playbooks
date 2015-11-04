@@ -13,14 +13,13 @@
   with_items:
      - "php5-{{ zabbix_server_db_type }}"
 
-#- name: frontend | Zabbix server php conf
-#  template:
-#     src=frontend/zabbix.conf.php
-#     dest=/etc/zabbix/zabbix.conf.php
-#     owner=www-data
-#     group=www-data
-#     mode=600
-#  notify: restart apache2
+- name: frontend | Zabbix server php conf
+  template:
+     src=zabbix.conf.php
+     dest=/etc/zabbix/zabbix.conf.php
+     owner=www-data
+     group=www-data
+     mode=600
 
 - name: frontend | Edit php.ini
   lineinfile:
@@ -34,19 +33,18 @@
 
 - name: frontend | apache config
   template:
-     src=frontend/apache.conf.j2
+     src=apache.conf.j2
      dest={{ zabbix_server_front_apache_conf }}
      owner=root
      group=root
      mode=0644
-  notify: restart apache2
 
 - name: zabbix_server | Copy zabbix apache config to sites-enabled
   command: cp /etc/zabbix/apache.conf /etc/apache2/sites-enabled/zabbix.conf
 
 - name: frontend | Deploy html redirect
   template:
-     src=frontend/index.html.j2
+     src=index.html.j2
      dest="{{ zabbix_server_front_root }}/index.html"
      owner=www-data
      group=www-data

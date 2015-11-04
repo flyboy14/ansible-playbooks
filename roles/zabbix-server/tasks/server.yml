@@ -30,12 +30,6 @@
 
 - name: zabbix_server | Replace service file with WORKING one
   synchronize: src=zabbix-server dest=/etc/init.d/zabbix-server
-#- name: zabbix_server | populate postgres database is populated
-#  shell:
-#      psql {{ zabbix_server_db_name }} -h localhost  < {{item}} && sleep 3
-#  with_items: zabbix_server_sql_files
-#  when: postgres_db.changed and zabbix_server_db_type == 'pgsql'
-#  sudo_user: postgres
 
 
 

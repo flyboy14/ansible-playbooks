@@ -14,7 +14,7 @@ zabbix_server_host                    : "{{ ansible_ssh_host | default(inventory
 zabbix_server_name                    : "{{ inventory_hostname }}"
 zabbix_server_port                    : 10051
 zabbix_server_conf                    :
-    ListenIP                          : "0.0.0.0"
+    ListenIP                          : "192.168.33.12"
     ListenPort                        : "{{ zabbix_server_port }}"
     LogFile                           : /var/log/zabbix-server/zabbix_server.log
     LogFileSize                       : 0
@@ -48,9 +48,9 @@ zabbix_server_front_pass              : "zabbix"  ## fresh installation default 
 zabbix_server_db_type                 : 'mysql' ## pgsql or mysql
 zabbix_server_db_name                 : "zabbix"
 zabbix_server_db_user                 : "zabbix"
-zabbix_server_db_pass                 : "READRdXxc&2zgvgzs_blaaaaaa"
-zabbix_server_db_host                 : "localhost"
-zabbix_server_db_port                 : 5432
+zabbix_server_db_pass                 : "zabbix"
+zabbix_server_db_host                 : "192.168.33.12"
+zabbix_server_db_port                 : 3306
 zabbix_server_db_intial_dir           : "/usr/share/zabbix-server-{{zabbix_server_db_type}}"
 
 ## Zabbix agent
@@ -65,9 +65,9 @@ zabbix_agent_conf                     :
     ListenPort                        : 10050
     ListenIP                          : "0.0.0.0"
     StartAgents                       : 3
-    Hostname                          : "{{ inventory_hostname }}"
+    Hostname                          : "zabbix-server"
     #ServerActive
-zabbix_agent_Server                   : 127.0.0.1
+zabbix_agent_Server                   : "192.168.33.12"
 zabbix_agent_Include                  :
                                         - /etc/zabbix/zabbix_agentd.d/
 

@@ -15,8 +15,5 @@
 - include: frontend.yml
   when: zabbix_server_front_install
 
-- include: agent.yml
-  when: zabbix_agent_install
-
 - include: mysql_init.yml
   when: "zabbix_server_db_type == 'mysql'"

@@ -14,7 +14,33 @@
   mysql_user:
     name: "{{zabbix_server_db_user}}"
     password: "{{zabbix_server_db_pass}}"
-    priv: "{{zabbix_server_db_name}}.*:ALL"
+    priv: "{{zabbix_server_db_name}}.*:ALL,GRANT"
     state: present
     host: "{{zabbix_server_db_host}}"
   tags: mysql_server
+
+- name: mysql | Create remote zabbix user
+  mysql_user:
+    name: "{{zabbix_server_db_user}}"
+    password: "{{zabbix_server_db_pass}}"
+    priv: "{{zabbix_server_db_name}}.*:ALL,GRANT"
+    state: present
+    host: "%"
+  tags: mysql_server
+
+- name: mysql | Create remote zabbix user (second try)
+  mysql_user:
+    name: "{{zabbix_server_db_user}}"
+    password: "{{zabbix_server_db_pass}}"
+    priv: "{{zabbix_server_db_name}}.*:ALL,GRANT"
+    state: present
+    host: "192.168.33.11"
+  tags: mysql_server
+
+- name: mysql | Change my.cnf
+  template:
+     src="my.cnf.j2"
+     dest="/etc/mysql/my.cnf"
+     owner=root
+     group=root
+     mode=0644

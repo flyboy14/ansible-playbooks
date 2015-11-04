@@ -3,7 +3,7 @@
 
 - hosts: zabbix-server
   remote_user: vagrant
-  user: root
+  become: yes
   roles:
   - common
   - zabbix-agent

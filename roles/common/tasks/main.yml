@@ -16,11 +16,9 @@
   command: apt-key update -y
 
 - name: Install rsync for ntp
-  apt: name=rsync state=present
-
-- name: Install git for Zabbix agent
-  apt: name=git state=present
-
-- name: Install ttf-dejavu-core for Zabbix frontend
-  apt: name=ttf-dejavu-core state=present
+  apt: name={{ item }} state=present
+  with_items:
+    - vim
+    - git
+    - ttf-dejavu-core
 

@@ -1,29 +1,15 @@
 ---
+- include: common.yml
+  when: zabbix_server_front_install or zabbix_server_install or zabbix_server_proxy_install or zabbix_agent_install
 
-- name: Download Zabbix sources
-  command: wget -q repo.zabbix.com/zabbix/2.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_2.2-1+trusty_all.deb
-
-- name: Install Zabbix package v2.2
-  command: dpkg -i zabbix-release_2.2-1+trusty_all.deb
-
-- name: Remove downloaded Zabbix package
-  file: name=zabbix-release_2.2-1+trusty_all.deb state=absent
-
-- name: Install Zabbix agent and Zabbix frontend-php
-  apt: name={{ item }} state=present
-  with_items:
-     - zabbix-agent
-     - zabbix-frontend-php
+- include: frontend.yml
+  when: zabbix_server_front_install
 
 #- name: Rsync zabbix_agentd.conf to /etc/zabbix
 #  synchronize: src=zabbix_agentd.conf dest=/etc/zabbix/zabbix_agentd.conf
 
 
 - name: zabbix_agent | Deploy zabbix_agentd.conf file
-  template:
-     src="zabbix_agentd.conf.j2"
-     dest="/etc/zabbix/zabbix_agentd.conf"
-     owner=root
-     group=root
-     mode=0644
-  notify: restart zabbix_agent
+  lineinfile: dest=/etc/zabbix/zabbix_agentd.conf regexp="^Server=" line="Server={{ zabbix_agent_Server }}"
+- lineinfile: dest=/etc/zabbix/zabbix_agentd.conf regexp="^ServerActive=" line="ServerActive={{ zabbix_agent_Server }}"
+- lineinfile: dest=/etc/zabbix/zabbix_agentd.conf regexp="^Hostname=" line="Hostname=zabbix-agent"

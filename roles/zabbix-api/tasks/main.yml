@@ -1,23 +1,47 @@
 ---
+- name: zabbix-api | Install libjson-rpc-perl
+  apt: name={{ item }}  state=present
+  with_items:
+     - libjson-rpc-perl
+     - unrar
+     - zip
 
-- name: Create hosts or update existing hosts info
-  local_action:
-    module: zabbix_host
-    server_url: http://192.168.33.12
-    login_user: Admin
-    login_password: zabbix
-    host_name: "Zabbix Server"
-    status: enabled
-    state: present
-    interfaces:
-      - type: 1
-        main: 1
-        useip: 1
-        ip: 127.0.0.1
-        dns: ""
-        port: 10050
-      - type: 4
-        main: 1
-        useip: 1
-        ip: 192.168.33.11
-        port: 10050
+- name: zabbix-api | Download older json-rpc package
+  command: wget -q https://cpan.metacpan.org/authors/id/M/MA/MAKAMAKA/JSON-RPC-0.96.tar.gz
+- unarchive: copy=no src=JSON-RPC-0.96.tar.gz dest=./
+- name: Generate make file
+  command: perl Makefile.PL chdir=JSON-RPC-0.96
+- command: make chdir=JSON-RPC-0.96
+- command: make install chdir=JSON-RPC-0.96
+
+- name: zabbix-api | Copy perl scripts to ~
+  synchronize: src=host_add.pl dest=host_add.pl
+- synchronize: src=hosts.pl dest=hosts.pl
+- synchronize: src=host_delete.pl dest=host_delete.pl
+
+- name: zabbix-api | clean files
+  file: name={{ item }} state=absent
+  with_items:
+    - JSON-RPC-0.96.tar.gz
+    - JSON-RPC-0.96
+#- name: Create hosts or update existing hosts info
+#  local_action:
+#    module: zabbix_host
+#    server_url: http://192.168.33.12
+#    login_user: Admin
+#    login_password: zabbix
+#    host_name: "Zabbix Server"
+#    status: enabled
+#    state: present
+#    interfaces:
+#      - type: 1
+#        main: 1
+#        useip: 1
+#        ip: 127.0.0.1
+#        dns: ""
+#       port: 10050
+#      - type: 4
+#        main: 1
+#        useip: 1
+#        ip: 192.168.33.11
+#        port: 10050
