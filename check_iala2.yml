@@ -1,0 +1,11 @@
+---
+
+- hosts: iala2
+  remote_user: vagrant
+  become: yes
+  roles:
+  - smola.java
+  -
+    #  - ANXS.monit.agent
+    #  - ntp
+    #  - rsyslog

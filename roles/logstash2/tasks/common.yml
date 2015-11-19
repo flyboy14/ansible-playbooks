@@ -1,0 +1,6 @@
+- name: Add sources for elasticsearch and logstash
+  synchronize: src=logstash2x.list dest=/etc/apt/sources.list.d/logstash2x.list
+- synchronize: src=elasricsearch2x.list dest=/etc/apt/sources.list.d/elasticsearch2x.list
+
+- name: apt update
+  apt: update_cache=yes

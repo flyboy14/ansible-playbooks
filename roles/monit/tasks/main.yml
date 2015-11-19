@@ -1,4 +1,21 @@
 ---
 
-- name: install monit
+- name: monit | install monit
   apt: name=monit state=present
+
+- name: monit | add Zabbix Agent to monit
+  template:
+     src="zabbix-agent.j2"
+     dest="/etc/monit/conf.d/agent"
+     owner=root
+     group=root
+     mode=0644
+
+- name: monit | edit monitrc
+  lineinfile: dest=/etc/monit/monitrc regexp="^# set httpd port" line="set httpd port 2812 and"
+- lineinfile: dest=/etc/monit/monitrc regexp="^#    use address localhost" line="use address localhost"
+- lineinfile: dest=/etc/monit/monitrc regexp="^#    allow localhost" line="allow localhost"
+- lineinfile: dest=/etc/monit/monitrc regexp="^#  check system" line="check system zabbix-server"
+
+- name: monit | restart monit
+  service: name=monit state=restarted enabled=yes

@@ -30,7 +30,7 @@
   service: name=mysql state=restarted
 
 - name: zabbix-api | start zabbix-server service
-  service: name=zabbix-server state=started
+  service: name=zabbix-server state=restarted
 
 - name: zabbix-api | Execute scripts monitoring zabbix server and agent
   command: "perl host_status.pl 10084 0"

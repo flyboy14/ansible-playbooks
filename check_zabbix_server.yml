@@ -9,6 +9,6 @@
   - zabbix-agent
   - zabbix-server
   - zabbix-api
-    # - ANXS.monit.server
+  - monit
     # - ntp
     # - rsyslog

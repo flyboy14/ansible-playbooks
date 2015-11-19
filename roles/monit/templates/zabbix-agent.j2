@@ -1,0 +1,11 @@
+check host zabbix-agent with address 192.168.33.11
+  if failed icmp type echo
+    for 5 times within 5 cycles
+  then alert
+
+# HTTP check
+  if failed
+    port 80 protocol http
+    for 5 times within 5 cycles
+  then alert
+
